@@ -2,7 +2,7 @@ function calculadora() {
     var operacao = prompt("Deseja fazer qual operação?")
     var num1 = parseFloat(prompt("Informe o primeiro número: "))
     var num2 = parseFloat(prompt("Informe o segundo número: "))
-
+    
     if (operacao == 'soma') {
         alert(num1 + num2);
     } else {

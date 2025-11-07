@@ -1,0 +1,134 @@
+<!-- CODIGO GERADO AUTOMATICAMENTE - BASE DE TESTE -->
+
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Formulário - Nome e Telefone</title>
+    <style>
+        :root{--bg:#f6f8fb;--card:#fff;--accent:#2563eb;--muted:#6b7280}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+            background:linear-gradient(180deg,var(--bg),#eef2ff 60%);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:24px;
+        }
+        .card{
+            background:var(--card);
+            padding:20px 22px;
+            border-radius:12px;
+            box-shadow:0 6px 20px rgba(16,24,40,0.08);
+            width:100%;
+            max-width:420px;
+        }
+        h1{margin:0 0 12px;font-size:18px}
+        p.lead{margin:0 0 18px;color:var(--muted);font-size:14px}
+        label{display:block;font-size:13px;margin-bottom:6px;color:#111827}
+        input[type="text"], input[type="tel"]{
+            width:100%;
+            box-sizing:border-box;
+            padding:10px 12px;
+            border:1px solid #e6e9ef;
+            border-radius:8px;
+            font-size:14px;
+            margin-bottom:14px;
+            outline:none;
+            transition:box-shadow .12s, border-color .12s;
+        }
+        input:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(37,99,235,0.08)}
+        .muted{font-size:12px;color:var(--muted);margin-top:-10px;margin-bottom:12px}
+        button{
+            background:var(--accent);
+            color:white;
+            border:0;
+            padding:10px 14px;
+            border-radius:8px;
+            font-weight:600;
+            cursor:pointer;
+        }
+        .success{
+            display:none;
+            margin-top:12px;
+            padding:10px;
+            border-radius:8px;
+            background:#ecfdf5;
+            color:#065f46;
+            font-size:14px;
+        }
+        .error{color:#b91c1c;font-size:13px;margin-top:-10px;margin-bottom:10px}
+    </style>
+</head>
+<body>
+    <main class="card" role="main">
+        <h1>Contato rápido</h1>
+        <p class="lead">Informe seu nome e telefone para entrarmos em contato.</p>
+
+        <form id="contactForm" novalidate>
+            <label for="name">Nome</label>
+            <input id="name" name="name" type="text" required minlength="2" placeholder="Seu nome completo" autocomplete="name" />
+            <div id="nameError" class="error" aria-live="polite"></div>
+
+            <label for="phone">Telefone</label>
+            <input id="phone" name="phone" type="tel" required
+                         pattern="^\+?[0-9\-\s().]{7,20}$"
+                         placeholder="+55 (11) 91234-5678" autocomplete="tel" />
+            <div class="muted">Aceitamos números com +, parênteses, espaços e traços.</div>
+            <div id="phoneError" class="error" aria-live="polite"></div>
+
+            <button type="submit">Enviar</button>
+
+            <div id="success" class="success" role="status" aria-live="polite"></div>
+        </form>
+    </main>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const phoneInput = document.getElementById('phone');
+        const nameError = document.getElementById('nameError');
+        const phoneError = document.getElementById('phoneError');
+        const success = document.getElementById('success');
+
+        function clearErrors(){
+            nameError.textContent = '';
+            phoneError.textContent = '';
+            success.style.display = 'none';
+            success.textContent = '';
+        }
+
+        form.addEventListener('submit', function(e){
+            e.preventDefault();
+            clearErrors();
+
+            let valid = true;
+
+            if (!nameInput.checkValidity()) {
+                valid = false;
+                if (nameInput.validity.valueMissing) nameError.textContent = 'O nome é obrigatório.';
+                else if (nameInput.validity.tooShort) nameError.textContent = 'Digite pelo menos 2 caracteres.';
+            }
+
+            if (!phoneInput.checkValidity()) {
+                valid = false;
+                if (phoneInput.validity.valueMissing) phoneError.textContent = 'O telefone é obrigatório.';
+                else phoneError.textContent = 'Formato de telefone inválido.';
+            }
+
+            if (!valid) return;
+
+            // Aqui você pode enviar os dados via fetch/XHR.
+            // Exemplo de comportamento simulado:
+            success.textContent = 'Obrigado! Recebemos seu contato.';
+            success.style.display = 'block';
+
+            // Opcional: limpar formulário
+            form.reset();
+        });
+    </script>
+</body>
+</html>
